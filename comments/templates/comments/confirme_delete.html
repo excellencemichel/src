@@ -1,0 +1,22 @@
+{% load urlify %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}
+{{ instance.title }}
+{% endblock head_title %}
+
+
+{% block content %}
+
+<h1> Confirmation de la suppression </h1>
+
+<form method="POST" action="."> {% csrf_token %}
+	<p>Vous êtes sûrs de vouloir supprimer : "{{ object.content }}" ?</p>
+
+	<input type="submit" value="Confirmer">
+	<a href="{{ object.get_absolute_url"> Supprimer</a>
+
+</form>
+
+{% endblock content %}
