@@ -152,7 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["https://topub.herokuapp.com/"]
 
 STATIC_URL = '/static/'
 
