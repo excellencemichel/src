@@ -41,10 +41,14 @@ INSTALLED_APPS = [
 
     'whitenoise.runserver_nostatic',
 
+    'crispy_forms',
+
     'comments',
     'profile_user',
 
+    'newsletters',
     'tutorials',
+
 
 ]
 
@@ -153,6 +157,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 ALLOWED_HOSTS = []
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = "bnvnmmnl@gmail.com"
+EMAIL_HOST_PASSWORD = "Emmanuel53787"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+CRISPY_TEMPLATE_PACK = "bootstrap3"
 
 STATIC_URL = '/static/'
 

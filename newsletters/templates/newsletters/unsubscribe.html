@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% crispy form form.helper %}
+
+{% block content %}
+     <div class="container">
+     	<div class="row">
+     		<div class="col-lg-6 col-lg-offset-3">
+     			<h3 class="text-center">Unsubscribe From Master Code Online's Newsletter</h3>
+     			<h4><a href="{% url 'newsletter:newsletter_signup' %}">Sign Up</a></h4>
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div {% if message.tags %} class="{{ message.tags}}" {% endif %} role="alert">
+
+                               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                         </button>
+                            {{ message }}
+                             </div>
+                        {% endfor %}
+
+                    {% endif %}
+
+     			<form method="POST" action="{% url 'newsletter:newletter_unsubscribe' %}">
+     				{% csrf_token %}
+     				<div class="input-group">
+     					{% crispy form %}
+     					<span class="input-group-btn">
+     						<button class="btn btn-default" type="submit">Unsubscribe</button>
+     					</span>
+     				</div>
+     			</form>
+     		</div>
+     	</div>
+     </div>
+{% endblock %} 

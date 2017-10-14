@@ -3,20 +3,21 @@ from .models import Language, StudentExperience, TutorialSeries, Lesson
 # Register your models here.
 
 class LanguageAdmin(admin.ModelAdmin):
-	exclude=("slug",)
+	prepopulated_fields = {"slug":("name",),}
+
 	list_display = ("name","active", )
 
 admin.site.register(Language, LanguageAdmin)
 
 class TutorialSeriesAdmin(admin.ModelAdmin):
-	exclude = ("slug",)
+	prepopulated_fields = {"slug":("name",),}
 	list_display = ("name", "archived",)
 
 admin.site.register(TutorialSeries,TutorialSeriesAdmin) 
 
 
 class LessonAdmin(admin.ModelAdmin):
-	exclude = ("slug",)
+	prepopulated_fields = {"slug":("title",),}
 	list_display = ("title", "active","free_preview",)
 
 

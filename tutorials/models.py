@@ -41,7 +41,7 @@ class StudentExperience(models.Model):
 
 class TutorialSeries(models.Model):
 	language = models.ForeignKey(Language)
-	studentExperience = models.ForeignKey(StudentExperience)
+	student_experience = models.ForeignKey(StudentExperience)
 	name = models.CharField(max_length=250)
 	description = models.TextField(blank=True, null=True)
 	archived = models.BooleanField(default=False)
@@ -56,7 +56,7 @@ class TutorialSeries(models.Model):
 
 
 	def get_absolute_url(self):
-		return reverse("tutorials:tutorials_series_detail", args[self.slug])
+		return reverse("tutorials:tutorials_series_detail", args=[self.slug])
 
 
 
@@ -67,9 +67,11 @@ class TutorialSeries(models.Model):
 
 
 class Lesson(models.Model):
-	tutorial_series = models.ForeignKey(TutorialSeries)
+	tutorial_series = models.ForeignKey(TutorialSeries, related_name="tutorials") #related_name
+	# permettra d'utiliser prefetch pour optimiser l'accès à la base de donnée
 	title = models.CharField(max_length=250)
 	video = models.TextField(blank=True, null=True)
+	length = models.CharField(max_length=50, blank=True, null=True)
 	content = models.TextField(blank=True, null=True)
 	slug = models.SlugField(max_length=250, unique=True)
 	free_preview = models.BooleanField(default=False)
@@ -82,7 +84,7 @@ class Lesson(models.Model):
 
 
 	def get_absolute_url(self):
-		return reverse("tutorials:language", args[self.slug])
+		return reverse("tutorials:lesson_detail", kwargs={"tutorial_series":self.tutorial_series, "slug":self.slug})
 
 	def __str__(self):
 		return self.title

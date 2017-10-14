@@ -5,11 +5,24 @@
 
  <div class="jumbotron">
       <div class="container">
-        <h1>{{ obj.name }}</h1>
-        <strong>Alléluia</strong>
-        <p>{{ obj.description }}</p>
-        <p>Experience Level : {{ obj.studentExperience }}</p>
+        <h1>{{ series.name }}</h1>
+        <p>{{ series.description }}</p>
+        <p>Experience Level : {{ series.studentExperience }}</p>
       </div>
+ </div>
+ <div class="container">
+ 	<ul class="list-group">
+ 		<li class="list-group-item">
+
+ 			 {% for lesson in lessons %}
+ 			 <span class="badge">{{ lesson.length }}</span>
+ 			 <a href="{% url 'tutorials:lesson_detail'  lesson.tutorial_series.slug lesson.slug %}">
+             {{ lesson.title }}
+         </a>
+ 		</li>
+ 		{% endfor %}
+ 	</ul>
+
  </div>
 
 {% endblock %}

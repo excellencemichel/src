@@ -5,7 +5,7 @@ from tutorials.models import TutorialSeries
 
 
 def home(request):
-	series = TutorialSeries.objects.filter(archived=False).order_by("-id")[:3]
+	series = TutorialSeries.objects.filter(archived=False).order_by("-id")
 	context = {
 	    "series":series,
 	}
