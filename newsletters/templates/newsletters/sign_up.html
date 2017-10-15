@@ -8,7 +8,7 @@
      	<div class="row">
      		<div class="col-lg-6 col-lg-offset-3">
      			<h3 class="text-center">Sign Up For Master Code Online's Newsletter</h3>
-                    <h4><a href="{% url 'newsletter:newletter_unsubscribe' %}">Unsubscribe</a></h4>
+                    <h4><a href="{% url 'newsletters:newsletter_unsubscribe' %}">Unsubscribe</a></h4>
                     {% if messages %}
                         {% for message in messages %}
                             <div {% if message.tags %} class="{{ message.tags}}" {% endif %} role="alert">
@@ -22,7 +22,7 @@
 
                     {% endif %}
 
-     			<form method="POST" action="{% url 'newsletter:newsletter_signup' %}">
+     			<form method="POST" action="{% url 'newsletters:newsletter_signup' %}">
      				{% csrf_token %}
      				<div class="input-group">
      					{% crispy form %}

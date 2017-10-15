@@ -1,7 +1,8 @@
 from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import render
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
+from django.template.loader import get_template
 
 from .models import NewsletterUser
 from .forms import NewsletterUserSignUpForm
@@ -26,8 +27,14 @@ def newsletter_signup(request):
 			subject = "Thank you for joining our newsletter"
 			from_email = settings.EMAIL_HOST_USER
 			to_email = [instance.email]
-			signup_message = """Welcom to Master code online newsletter. If you would like to unsubcribe visit http://127.0.0.1:8000/newsletter/unsubscribe"""
-			send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=signup_message, fail_silently=False)
+
+			with open(settings.BASE_DIR + "/newsletters/templates/newsletters/sign_up_email.txt") as f:
+				signup_message = f.read()
+
+			message = EmailMultiAlternatives(subject=subject, body=signup_message, from_email=from_email, to=to_email)
+			htm_tempale = get_template("newsletters/sign_up_email.html").render()
+			message.attach_alternative(htm_tempale, "text/html")
+			message.send()
 
 
 	context = {
@@ -52,16 +59,19 @@ def newletter_unsubscribe(request):
 				             "alert alert-success alert-dismissible")
 
 
-		subject ="You have been unsubscribed"
-		from_email = settings.EMAIL_HOST_USER
-		to_email = [instance.email]
-		signup_message = """Sorry to see you go let us know if an issue with our service"""
-		send_mail(subject=subject, from_email=from_email, recipient_list=to_email, message=signup_message, fail_silently=False)
+			subject ="You have been unsubscribed"
+			from_email = settings.EMAIL_HOST_USER
+			to_email = [instance.email]
+			with open(settings.BASE_DIR + "/newsletters/templates/newsletters/unsubscribe_email.txt") as f:
+				signup_message = f.read()
 
+			message = EmailMultiAlternatives(subject=subject, body=signup_message, from_email=from_email, to=to_email)
+			htm_tempale = get_template("newsletters/unsubscribe_email.html").render()
+			message.attach_alternative(htm_tempale, "text/html")
+			message.send()
 
-
-	else:
-		messages.warning(request,
+		else:
+			messages.warning(request,
 			 "Your email is not in the database",
              "alert alert-warning alert-dismissible"
                     

@@ -1,0 +1,2 @@
+Welcom to ToPub, we will make world better, thank you for your contribution.
+If you would like to unsubcribe visit http://127.0.0.1:8000/newsletter/unsubscribe
